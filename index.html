@@ -10,7 +10,7 @@
     <style>
         label {
             display: inline-block;
-            width: 75px;
+            width: 90px;
             text-align: right;
         }
     </style>
@@ -31,31 +31,24 @@
     <br>
     <br>
 
+    <label>Trade in? </label>
+    <input type="checkbox" id="trade-in" value="1" onchange="valueBike()">
+
+    <br>
+    <br>
+
+
     <label>Sell for:</label>
     <label id="sell-for"></label>
     <br>
     <label>Split:</label>
     <label id="split"></label>
-
     <br>
-    <br>
-
-    <h4>Trade in</h4>
     <label>Offer:</label>
-    <label id="trade-offer"></label>
+    <label id="offer"></label>
     <br>
     <label>Profit:</label>
-    <label id="trade-profit"></label>
-
-    <br>
-    <br>
-
-    <h4>Purchase</h4>
-    <label>Offer:</label>
-    <label id="purchase-offer"></label>
-    <br>
-    <label>Profit:</label>
-    <label id="purchase-profit"></label>
+    <label id="profit"></label>
 
     <script>
         function getOffer(offset, multiplier) {
@@ -75,14 +68,15 @@
             const tradeProfit = split - tradeOffer
             const purchaseProfit = split - purchaseOffer
 
+            const isTradeIn = document.getElementById("trade-in").checked
+
+            const offer = isTradeIn ? tradeOffer : purchaseOffer
+            const profit = isTradeIn ? tradeProfit : purchaseProfit
+
             document.getElementById("sell-for").innerHTML = "£ " + price.toFixed(2)
             document.getElementById("split").innerHTML = "£ " + split.toFixed(2)
-
-            document.getElementById("trade-offer").innerHTML = "£ " + tradeOffer.toFixed(2)
-            document.getElementById("trade-profit").innerHTML = "£ " + tradeProfit.toFixed(2)
-
-            document.getElementById("purchase-offer").innerHTML = "£ " + purchaseOffer.toFixed(2)
-            document.getElementById("purchase-profit").innerHTML = "£ " + purchaseProfit.toFixed(2)
+            document.getElementById("offer").innerHTML = "£ " + offer.toFixed(2)
+            document.getElementById("profit").innerHTML = "£ " + profit.toFixed(2)
         }
 
         function populateYears() {
