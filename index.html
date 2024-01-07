@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h2>Bike valuation</h2>
+
+    <label>Year:</label>
+    <select id="year" onchange="valueBike()"></select>
+
+    <br>
+    <br>
+
+    <label>MSRP: £</label>
+    <input id="price" onchange="valueBike()" oninput="valueBike()" type="number"></input>
+
+    <br>
+    <br>
+
+    <label>Trade in: £</label>
+    <label id="trade-in"></label>
+
+    <br>
+
+    <label>Purchase: £</label>
+    <label id="purchase"></label>
+
+    <script>
+        function getValue(offset, multiplier) {
+            const year = document.getElementById("year").value
+            const price = document.getElementById("price").value
+            const currentYear = new Date().getFullYear()
+            const age = currentYear - year
+            return Math.round(price * (offset - (age * multiplier)))
+        }
+
+        function valueBike() {
+            document.getElementById("trade-in").innerHTML = getValue(0.3, 0.0175)
+            document.getElementById("purchase").innerHTML = getValue(0.27, 0.0150)
+        }
+
+        function populateYears() {
+            const currentYear = new Date().getFullYear()
+            const yearSelect = document.getElementById("year")
+
+            for (let i = 0; i < 20; ++i) {
+                const option = document.createElement("option")
+                option.textContent = currentYear - i
+                year.appendChild(option)
+            }
+        }
+
+        populateYears()
+        valueBike()
+    </script>
+</body>
+
+</html>
