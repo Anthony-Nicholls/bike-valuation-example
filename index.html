@@ -37,18 +37,7 @@
     <br>
     <br>
 
-
-    <label>Sell for:</label>
-    <label id="sell-for"></label>
-    <br>
-    <label>Split:</label>
-    <label id="split"></label>
-    <br>
-    <label>Offer:</label>
-    <label id="offer"></label>
-    <br>
-    <label>Profit:</label>
-    <label id="profit"></label>
+    <h1 id="offer"></h1>
 
     <script>
         function getOffer(offset, multiplier) {
@@ -60,23 +49,10 @@
         }
 
         function valueBike() {
-            const tradeOffer = getOffer(0.3, 0.0175)
-            const purchaseOffer = getOffer(0.27, 0.015)
-
-            const price = tradeOffer * 2.3
-            const split = price / 2
-            const tradeProfit = split - tradeOffer
-            const purchaseProfit = split - purchaseOffer
-
             const isTradeIn = document.getElementById("trade-in").checked
+            const offer = isTradeIn ? getOffer(0.35, 0.0175) : getOffer(0.3, 0.015)
 
-            const offer = isTradeIn ? tradeOffer : purchaseOffer
-            const profit = isTradeIn ? tradeProfit : purchaseProfit
-
-            document.getElementById("sell-for").innerHTML = "£ " + price.toFixed(2)
-            document.getElementById("split").innerHTML = "£ " + split.toFixed(2)
             document.getElementById("offer").innerHTML = "£ " + offer.toFixed(2)
-            document.getElementById("profit").innerHTML = "£ " + profit.toFixed(2)
         }
 
         function populateYears() {
