@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <style>
+        label {
+            display: inline-block;
+            width: 75px;
+            text-align: right;
+        }
+    </style>
+</head>
+
 <body>
     <h2>Bike valuation</h2>
 
@@ -16,26 +26,54 @@
     <br>
     <br>
 
-    <label>Trade in: £</label>
-    <label id="trade-in"></label>
+    <label>Sell for:</label>
+    <label id="sell-for"></label>
+    <br>
+    <label>Split:</label>
+    <label id="split"></label>
+
+    <h4>Trade in</h4>
+    <label>Offer:</label>
+    <label id="trade-offer"></label>
+    <br>
+    <label>Profit:</label>
+    <label id="trade-profit"></label>
 
     <br>
 
-    <label>Purchase: £</label>
-    <label id="purchase"></label>
+    <h4>Purchase</h4>
+    <label>Offer:</label>
+    <label id="purchase-offer"></label>
+    <br>
+    <label>Profit:</label>
+    <label id="purchase-profit"></label>
 
     <script>
-        function getValue(offset, multiplier) {
+        function getOffer(offset, multiplier) {
             const year = document.getElementById("year").value
             const price = document.getElementById("price").value
             const currentYear = new Date().getFullYear()
             const age = currentYear - year
-            return Math.round(price * (offset - (age * multiplier)))
+            return price * (offset - (age * multiplier));
         }
 
         function valueBike() {
-            document.getElementById("trade-in").innerHTML = getValue(0.3, 0.0175)
-            document.getElementById("purchase").innerHTML = getValue(0.27, 0.0150)
+            const tradeOffer = getOffer(0.3, 0.0175)
+            const purchaseOffer = getOffer(0.27, 0.015)
+
+            const price = tradeOffer * 2.3
+            const split = price / 2
+            const tradeProfit = split - tradeOffer
+            const purchaseProfit = split - purchaseOffer
+
+            document.getElementById("sell-for").innerHTML = "£ " + price.toFixed(2)
+            document.getElementById("split").innerHTML = "£ " + split.toFixed(2)
+
+            document.getElementById("trade-offer").innerHTML = "£ " + tradeOffer.toFixed(2)
+            document.getElementById("trade-profit").innerHTML = "£ " + tradeProfit.toFixed(2)
+
+            document.getElementById("purchase-offer").innerHTML = "£ " + purchaseOffer.toFixed(2)
+            document.getElementById("purchase-profit").innerHTML = "£ " + purchaseProfit.toFixed(2)
         }
 
         function populateYears() {
